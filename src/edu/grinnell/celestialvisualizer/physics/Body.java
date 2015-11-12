@@ -58,7 +58,7 @@ public class Body {
 	public Vector2d calculateAcceleration(List<Body> bodies) {
 		Vector2d accelTotal = Vector2d.zero;
 		for (int i = 0; i < bodies.size(); i++) {
-			Vector2d newAccel = Physics.calculateAccelerationOn(this.getPosition(), bodies.get(i).getMass(), bodies.get(i).getPosition());
+			Vector2d newAccel = Physics.calculateAccelerationOn(position, bodies.get(i).mass, bodies.get(i).position);
 			accelTotal = accelTotal.add(newAccel);
 		}
 		return accelTotal;
@@ -74,7 +74,6 @@ public class Body {
 	public void update(double elapsedTime, Vector2d acc) {
 		// Update position
 		// dx = tv + (.5 * a * t^2)		->		add dx to this.position
-
 		double timeVeloX = elapsedTime * this.velocity.getX();
 		double timeVeloY = elapsedTime * this.velocity.getY();
 		double halfAccelTimeSqX = 0.5 * acc.getX() * Math.pow(elapsedTime, 2);
