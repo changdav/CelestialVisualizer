@@ -56,21 +56,12 @@ public class Body {
 	 * @return the total acceleration imparted by the given bodies on this one.
 	 */
 	public Vector2d calculateAcceleration(List<Body> bodies) {
-		double accelX = 0;
-		double accelY = 0;
-		double G = Physics.G;
-		double thisBodyX = this.position.getX();
-		double thisBodyY = this.position.getY();
-
+		Vector2d accelTotal = Vector2d.zero;
 		for (int i = 0; i < bodies.size(); i++) {
-			double massG = bodies.get(i).mass * G;
-			double xDiff = thisBodyX - bodies.get(i).position.getX();
-			double yDiff = thisBodyY - bodies.get(i).position.getY();
-			accelX += massG / (Math.abs(xDiff) * (xDiff));
-			accelY += massG / (Math.abs(yDiff) * (yDiff));
+			Vector2d newAccel = Physics.calculateAccelerationOn(this.getPosition(), bodies.get(i).getMass(), bodies.get(i).getPosition());
+			accelTotal = accelTotal.add(newAccel);
 		}
-
-		return new Vector2d(accelX, accelY);
+		return accelTotal;
 	}
 
 	/**
@@ -82,19 +73,19 @@ public class Body {
 	 */
 	public void update(double elapsedTime, Vector2d acc) {
 		// Update position
-		// dx = tv + (.5 * a * t^2)     ->     add dx to this.position
+		// dx = tv + (.5 * a * t^2)		->		add dx to this.position
 
 		double timeVeloX = elapsedTime * this.velocity.getX();
-		double timeVeloY = elapsedTime * this.velocity.getY();;
+		double timeVeloY = elapsedTime * this.velocity.getY();
 		double halfAccelTimeSqX = 0.5 * acc.getX() * Math.pow(elapsedTime, 2);
 		double halfAccelTimeSqY = 0.5 * acc.getY() * Math.pow(elapsedTime, 2);
 		double changeX = timeVeloX + halfAccelTimeSqX;
 		double changeY = timeVeloY + halfAccelTimeSqY;
-		this.position.add(new Point(changeX, changeY));
+		this.position = this.position.add(new Point(changeX, changeY));
 
 		// Update velocity
-		// dv = at    ->     add dv to this.velocity
+		// dv = at						->		add dv to this.velocity
 		Vector2d veloChange = acc.scale(elapsedTime);
-		this.velocity.add(veloChange);
+		this.velocity = this.velocity.add(veloChange);
 	}
 }
