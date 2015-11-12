@@ -2,6 +2,8 @@ package edu.grinnell.celestialvisualizer.physics;
 
 import java.util.LinkedList;
 import java.util.List;
+import java.util.stream.Collectors;
+import java.util.stream.Stream;
 
 import edu.grinnell.celestialvisualizer.quadtree.QuadTree;
 import edu.grinnell.celestialvisualizer.util.BoundingBox;
@@ -47,13 +49,17 @@ public class NBody {
 	 * @return the list of accelerations
 	 */
 	public List<Vector2d> calculateAccelerations(double elapsedTime) {
-		List<Vector2d> accelList = new LinkedList<Vector2d>();
-		for (int i = 0; i < this.bodies.size(); i++) {
-			Vector2d newAccel = Vector2d.zero;
-			newAccel.add(this.bodies.get(i).calculateAcceleration(getBodies()));
-			accelList.add(newAccel);
-		}
-		return accelList;
+		Stream<Body> stream1 = bodies.parallelStream();
+		return stream1.map(s -> s.calculateAcceleration(bodies))
+				.collect(Collectors.toList());
+		
+		//		List<Vector2d> accelList = new LinkedList<Vector2d>();
+		//		for (int i = 0; i < this.bodies.size(); i++) {
+		//			Vector2d newAccel = Vector2d.zero;
+		//			newAccel.add(this.bodies.get(i).calculateAcceleration(getBodies()));
+		//			accelList.add(newAccel);
+		//		}
+		//		return accelList;
 	}
 
 	/**
