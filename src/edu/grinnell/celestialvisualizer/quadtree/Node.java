@@ -10,7 +10,7 @@ public interface Node {
      * in the tree (as a leaf).
      * @param pos the point to search for
      * @param bb the bounding box encasing the world
-     * @return true iff the point is in the quad tree
+     * @return true if the point is in the quad tree
      */
     public boolean lookup(Point pos, BoundingBox bb);
     
