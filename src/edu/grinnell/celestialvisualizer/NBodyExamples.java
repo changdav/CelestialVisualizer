@@ -127,7 +127,7 @@ public class NBodyExamples {
     private static List<Body> createCollisionSystem(int numSunBodies, int numStarBodies) {
         double starMass = SUN_MASS * 0.1;
         List<Body> solar1 = makeLots(SUN_MASS, numSunBodies);
-        List<Body> solar2 = makeLots(starMass, numStarBodies);
+        List<Body> solar2 = makeLots(SUN_MASS, numStarBodies);
         Vector2d disp1 = new Vector2d(DISTANCE / 4.0, 0.0);
         Vector2d disp2 = new Vector2d(0.0 - (DISTANCE / 4), 0.0 - (DISTANCE / 4));
         Vector2d diff = disp1.difference(disp2);
@@ -142,8 +142,8 @@ public class NBodyExamples {
         return bodies;
     }
     
-    private static final int NUM_SUN_BODIES = 1000;
-    private static final int NUM_STAR_BODIES = 300;
+    private static final int NUM_SUN_BODIES = 300;
+    private static final int NUM_STAR_BODIES = 2;
     
     /**
      * A NBody simulation containing many randomly generated bodies around
