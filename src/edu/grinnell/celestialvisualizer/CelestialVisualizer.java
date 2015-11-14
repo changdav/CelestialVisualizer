@@ -20,10 +20,10 @@ public class CelestialVisualizer {
     private static final boolean USE_QTREE = false;
     
     /** The NBody model that we will use for the simulation */
-    private static final NBody MODEL = NBodyExamples.PLANETS;
+    private static final NBody MODEL = NBodyExamples.COLLISION;
     
     /** The frames per second of the simulation, i.e., how often we update */
-    private static final int FPS = 60;
+    private static final int FPS = 130;
     
     public static void main(String[] args) {
         // Construct our frame and panel and make it all visible.
