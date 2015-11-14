@@ -13,15 +13,20 @@ public class LeafNode implements Node{
 		this.position = position;
 	}
 
+	/**
+	 * This method returns true when the given position is within bb and matches pos.
+	 */
 	@Override
 	public boolean lookup(Point pos, BoundingBox bb) {
-		// TODO Auto-generated method stub
-		return false;
+		if (bb.contains(position) && position.equals(pos)) {
+			return true;
+		} else {
+			return false;
+		}
 	}
 
 	@Override
 	public Vector2d calculateAcceleration(Point p, BoundingBox bb, double thresh) {
-		// TODO Auto-generated method stub
 		return null;
 	}
 
