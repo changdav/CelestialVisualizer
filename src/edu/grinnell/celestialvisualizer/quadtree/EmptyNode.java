@@ -4,7 +4,6 @@ import edu.grinnell.celestialvisualizer.util.Point;
 import edu.grinnell.celestialvisualizer.util.Vector2d;
 
 public class EmptyNode implements Node{
-	// does this have fields???
 	
 	public EmptyNode() {}
 	
