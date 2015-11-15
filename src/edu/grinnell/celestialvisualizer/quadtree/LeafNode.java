@@ -1,5 +1,6 @@
 package edu.grinnell.celestialvisualizer.quadtree;
 
+import edu.grinnell.celestialvisualizer.physics.Physics;
 import edu.grinnell.celestialvisualizer.util.BoundingBox;
 import edu.grinnell.celestialvisualizer.util.Point;
 import edu.grinnell.celestialvisualizer.util.Vector2d;
@@ -27,7 +28,12 @@ public class LeafNode implements Node{
 
 	@Override
 	public Vector2d calculateAcceleration(Point p, BoundingBox bb, double thresh) {
-		return null;
+		Vector2d posDif = p.distance(position);
+		if (posDif.magnitude() < thresh || bb.contains(p)) {
+			return Physics.calculateAccelerationOn(p, mass, position);
+		} else {
+			return Vector2d.zero;
+		}
 	}
 
 	@Override
