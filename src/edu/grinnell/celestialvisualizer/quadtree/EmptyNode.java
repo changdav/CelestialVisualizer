@@ -7,19 +7,16 @@ public class EmptyNode implements Node{
 
 	public EmptyNode() {}
 
-	//done
 	@Override
 	public boolean lookup(Point pos, BoundingBox bb) {
 		return false;
 	}
 
-	//done
 	@Override
 	public Vector2d calculateAcceleration(Point p, BoundingBox bb, double thresh) {
 		return Vector2d.zero;
 	}
-	
-	//done
+
 	@Override
 	public boolean equals(Object other) {
 		if (other instanceof EmptyNode) {
@@ -31,7 +28,10 @@ public class EmptyNode implements Node{
 
 	@Override
 	public Node insert(double mass, Point p, BoundingBox bb) {
-		return new LeafNode (mass, p);
+		if (!bb.contains(p)){
+			throw new UnsupportedOperationException();
+		} else {
+			return new LeafNode (mass, p);
+		}
 	}
-
 }
