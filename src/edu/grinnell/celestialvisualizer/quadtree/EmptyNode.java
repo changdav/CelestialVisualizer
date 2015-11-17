@@ -31,8 +31,7 @@ public class EmptyNode implements Node{
 
 	@Override
 	public Node insert(double mass, Point p, BoundingBox bb) {
-		// TODO Auto-generated method stub
-		return null;
+		return new LeafNode (mass, p);
 	}
 
 }

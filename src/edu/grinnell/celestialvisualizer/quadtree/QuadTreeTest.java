@@ -18,18 +18,18 @@ public class QuadTreeTest {
 		assertEquals(true, ret.getRoot().lookup(pos, bb));
 	}
 
-//	@Test
-//	public void testQuadTreeAccel() {
-//		Point p = new Point(1.0, 1.0);
-//		BoundingBox bb = new BoundingBox(0.0, 0.0, 4.0, 4.0);
-//		QuadTree qtree = new QuadTree();
-//		assertEquals(Vector2d.zero, qtree.calculateAcceleration(p, bb, 0.0));
+	@Test
+	public void testQuadTreeAccel() {
+		Point p = new Point(1.0, 1.0);
+		BoundingBox bb = new BoundingBox(0.0, 0.0, 4.0, 4.0);
+		QuadTree qtree = QuadTree.makeTreeWithEmpty();
+		assertEquals(Vector2d.zero, qtree.calculateAcceleration(p, bb, 0.0));
 //
 //		qtree = new QuadTree();
 //		qtree.insert(10000000.0, new Point(2.0, 3.0), bb);
 //		p = new Point (2.0, 2.0);
 //		assertEquals(new Vector2d(0.0, 0.000667428), qtree.calculateAcceleration(p, bb, 0.0));
-//	}
+	}
 //
 //	@Test
 //	public void testQuadTreeInsert() {

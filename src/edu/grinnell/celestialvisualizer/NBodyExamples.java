@@ -142,8 +142,8 @@ public class NBodyExamples {
         return bodies;
     }
     
-    private static final int NUM_SUN_BODIES = 300;
-    private static final int NUM_STAR_BODIES = 2;
+    private static final int NUM_SUN_BODIES = 1000;
+    private static final int NUM_STAR_BODIES = 300;
     
     /**
      * A NBody simulation containing many randomly generated bodies around

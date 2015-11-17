@@ -14,6 +14,12 @@ public class QuadTree {
 		ret.root = new LeafNode(1.0, new Point (2.0, 3.0));
 		return ret;
 	}
+	
+	public static QuadTree makeTreeWithEmpty() {
+		QuadTree ret = new QuadTree();
+		ret.root = new EmptyNode();
+		return ret;
+	}
 
 	public Node getRoot() { 
 		return root;
@@ -37,7 +43,9 @@ public class QuadTree {
 	}
 
 	public static QuadTree q0() {
-		throw new edu.grinnell.celestialvisualizer.UnimplementedException("QuadTree.q0");
+		QuadTree ret = new QuadTree();
+		ret.root = new EmptyNode();
+		return ret;
 	}
 
 	public static QuadTree q1() {
