@@ -85,13 +85,6 @@ public class LeafNode implements Node{
 				lowerRight = ret;
 			}
 			
-//			switch (bb.quadrantOf(p)) {
-//			case UPPER_LEFT: ;
-//			case UPPER_RIGHT: return this.lookup(p, bb.getQuadrant(Quadrant.UPPER_RIGHT));
-//			case LOWER_LEFT: return this.lookup(p, bb.getQuadrant(Quadrant.LOWER_LEFT));
-//			case LOWER_RIGHT: return this.lookup(p, bb.getQuadrant(Quadrant.LOWER_RIGHT));
-//			default: return false;
-//			}
 			return new CentroidNode(cent2.add(cent1), upperLeft, upperRight, lowerLeft, lowerRight);
 		}
 	}

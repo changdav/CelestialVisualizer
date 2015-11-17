@@ -27,21 +27,15 @@ public class QuadTree {
 	}
 
 	public boolean lookup(Point pos, BoundingBox bb) {
-		throw new edu.grinnell.celestialvisualizer.UnimplementedException("QuadTree.lookup");
+		return root.lookup(pos, bb);
 	}
 
 	public Vector2d calculateAcceleration(Point p, BoundingBox bb, double eps) {
-		throw new edu.grinnell.celestialvisualizer.UnimplementedException("QuadTree.calculateAcceleration");
+		return root.calculateAcceleration(p, bb, eps);
 	}
 
 	public void insert(double mass, Point pos, BoundingBox bb) {
-		if (root == null) {
-			root = new EmptyNode().insert(mass, pos, bb);
-		} else if (bb.getQuadrant(bb.quadrantOf(pos)) == null){
-			root = new LeafNode(mass, pos).insert(mass, pos, bb);
-		} else {
-			root = root.insert(mass, pos, bb.getQuadrant(bb.quadrantOf(pos)));
-		}
+		root = root.insert(mass, pos, bb);
 	}
 
 	@Override

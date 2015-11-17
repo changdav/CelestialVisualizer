@@ -57,8 +57,20 @@ public class CentroidNode implements Node{
 
 	@Override
 	public Node insert(double mass, Point p, BoundingBox bb) {
-		// TODO Auto-generated method stub
 		return null;
+//		if (!bb.contains(p)){
+//			throw new UnsupportedOperationException();
+//		} 
+//		
+//		// if 
+//		else if ()
+//			// must calculate new centroid since mass of point changes
+//			return new CentroidNode());
+//		} else if (bb.quadrantOf(p).equals(bb.quadrantOf(position))){
+//			return insert (mass, p, bb.getQuadrant(bb.quadrantOf(p)));
+//		} else {
+//			
+//		}
 	}
 
 }
