@@ -21,7 +21,6 @@ public class CentroidNode implements Node{
 		this.lowerRight = lowerRight;
 	}
 
-	//done
 	@Override
 	public boolean lookup(Point pos, BoundingBox bb) {
 		switch (bb.quadrantOf(pos)) {
@@ -33,7 +32,6 @@ public class CentroidNode implements Node{
 		}
 	}
 
-	//done
 	@Override
 	public Vector2d calculateAcceleration(Point p, BoundingBox bb, double thresh) {
 		double distance = p.distance(this.cent.getPosition()).magnitude();
@@ -46,6 +44,7 @@ public class CentroidNode implements Node{
 			return Physics.calculateAccelerationOn(p, cent.getMass(), cent.getPosition());
 		}
 	}
+	
 	@Override
 	public boolean equals(Object other) {
 		if (other instanceof CentroidNode) {
@@ -58,19 +57,19 @@ public class CentroidNode implements Node{
 	@Override
 	public Node insert(double mass, Point p, BoundingBox bb) {
 		return null;
-//		if (!bb.contains(p)){
-//			throw new UnsupportedOperationException();
-//		} 
-//		
-//		// if 
-//		else if ()
-//			// must calculate new centroid since mass of point changes
-//			return new CentroidNode());
-//		} else if (bb.quadrantOf(p).equals(bb.quadrantOf(position))){
-//			return insert (mass, p, bb.getQuadrant(bb.quadrantOf(p)));
-//		} else {
-//			
-//		}
+		if (!bb.contains(p)){
+			throw new UnsupportedOperationException();
+		} else if ()
+		
+		// if 
+		else if ()
+			// must calculate new centroid since mass of point changes
+			return new CentroidNode());
+		} else if (bb.quadrantOf(p).equals(bb.quadrantOf(position))){
+			return insert (mass, p, bb.getQuadrant(bb.quadrantOf(p)));
+		} else {
+			
+		}
 	}
 
 }

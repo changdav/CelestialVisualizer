@@ -1,5 +1,4 @@
 package edu.grinnell.celestialvisualizer.quadtree;
-
 import edu.grinnell.celestialvisualizer.physics.Centroid;
 import edu.grinnell.celestialvisualizer.util.BoundingBox;
 import edu.grinnell.celestialvisualizer.util.Point;
