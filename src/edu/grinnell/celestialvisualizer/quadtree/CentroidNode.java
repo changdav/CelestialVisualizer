@@ -1,5 +1,5 @@
 package edu.grinnell.celestialvisualizer.quadtree;
-
+import edu.grinnell.celestialvisualizer.util.Quadrant;
 import edu.grinnell.celestialvisualizer.physics.Centroid;
 import edu.grinnell.celestialvisualizer.util.BoundingBox;
 import edu.grinnell.celestialvisualizer.util.Point;
@@ -20,20 +20,28 @@ public class CentroidNode implements Node{
 		this.q3 = q3;
 	}
 
-	/**
-	 * This method returns false as a CentroidNode does not contain any points.
-	 */
+	//done
 	@Override
 	public boolean lookup(Point pos, BoundingBox bb) {
-		return false;
+		switch (bb.quadrantOf(pos)) {
+		case UPPER_LEFT: return this.lookup(pos, bb.getQuadrant(Quadrant.UPPER_LEFT));
+		case UPPER_RIGHT: return this.lookup(pos, bb.getQuadrant(Quadrant.UPPER_RIGHT));
+		case LOWER_LEFT: return this.lookup(pos, bb.getQuadrant(Quadrant.LOWER_LEFT));
+		case LOWER_RIGHT: return this.lookup(pos, bb.getQuadrant(Quadrant.LOWER_RIGHT));
+		default: return false;
+		}
 	}
 
+	//done
 	@Override
 	public Vector2d calculateAcceleration(Point p, BoundingBox bb, double thresh) {
-		// TODO Auto-generated method stub
-		return null;
+		if 
 	}
 
+    public boolean equals(Object other) {
+    	
+    }
+	
 	@Override
 	public Node insert(double mass, Point p, BoundingBox bb) {
 		// TODO Auto-generated method stub

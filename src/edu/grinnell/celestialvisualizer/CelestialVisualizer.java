@@ -23,7 +23,7 @@ public class CelestialVisualizer {
     private static final NBody MODEL = NBodyExamples.COLLISION;
     
     /** The frames per second of the simulation, i.e., how often we update */
-    private static final int FPS = 130;
+    private static final int FPS = 60;
     
     public static void main(String[] args) {
         // Construct our frame and panel and make it all visible.
