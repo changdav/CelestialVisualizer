@@ -42,12 +42,6 @@ public class LeafNode implements Node{
 		}
 	}
 
-//	@Override
-//	public Node insert(double mass, Point p, BoundingBox bb) {
-//		// TODO Auto-generated method stub
-//		return null;
-//	}
-
 	@Override
 	public Node insert(double mass, Point p, BoundingBox bb) {
 		if (!bb.contains(p)){
@@ -59,17 +53,46 @@ public class LeafNode implements Node{
 		} else {
 			Centroid cent1 = new Centroid (this.mass, this.position);
 			Centroid cent2 = new Centroid (mass, p);
-			bb.quadrantOf(p);
-			bb.quadrantOf(position);
 			
-			switch (bb.quadrantOf(p)) {
-			case UPPER_LEFT: ;
-			case UPPER_RIGHT: return this.lookup(p, bb.getQuadrant(Quadrant.UPPER_RIGHT));
-			case LOWER_LEFT: return this.lookup(p, bb.getQuadrant(Quadrant.LOWER_LEFT));
-			case LOWER_RIGHT: return this.lookup(p, bb.getQuadrant(Quadrant.LOWER_RIGHT));
-			default: return false;
+			Node upperLeft = new EmptyNode();
+			Node upperRight= new EmptyNode();
+			Node lowerLeft = new EmptyNode();
+			Node lowerRight= new EmptyNode();
+			
+			if (bb.getQuadrant(bb.quadrantOf(p)) == bb.getQuadrant(Quadrant.UPPER_LEFT)){
+				LeafNode ret = new LeafNode (mass, p);
+				upperLeft = ret;
+			} else if (bb.getQuadrant(bb.quadrantOf(position)) == bb.getQuadrant(Quadrant.UPPER_LEFT)){
+				LeafNode ret = new LeafNode (this.mass, position);
+				upperLeft = ret;
+			} else if (bb.getQuadrant(bb.quadrantOf(p)) == bb.getQuadrant(Quadrant.UPPER_RIGHT)){
+				LeafNode ret = new LeafNode (mass, p);
+				upperRight = ret;
+			} else if (bb.getQuadrant(bb.quadrantOf(position)) == bb.getQuadrant(Quadrant.UPPER_RIGHT)){
+				LeafNode ret = new LeafNode (this.mass, position);
+				upperRight= ret;
+			} else if (bb.getQuadrant(bb.quadrantOf(p)) == bb.getQuadrant(Quadrant.LOWER_LEFT)){
+				LeafNode ret = new LeafNode (mass, p);
+				lowerLeft = ret;
+			} else if (bb.getQuadrant(bb.quadrantOf(position)) == bb.getQuadrant(Quadrant.LOWER_LEFT)){
+				LeafNode ret = new LeafNode (this.mass, position);
+				lowerLeft = ret;
+			} else if (bb.getQuadrant(bb.quadrantOf(p)) == bb.getQuadrant(Quadrant.LOWER_RIGHT)){
+				LeafNode ret = new LeafNode (mass, p);
+				lowerRight = ret;
+			} else if (bb.getQuadrant(bb.quadrantOf(position)) == bb.getQuadrant(Quadrant.LOWER_RIGHT)){
+				LeafNode ret = new LeafNode (this.mass, position);
+				lowerRight = ret;
 			}
-			return new CentroidNode(cent2.add(cent1), )
+			
+//			switch (bb.quadrantOf(p)) {
+//			case UPPER_LEFT: ;
+//			case UPPER_RIGHT: return this.lookup(p, bb.getQuadrant(Quadrant.UPPER_RIGHT));
+//			case LOWER_LEFT: return this.lookup(p, bb.getQuadrant(Quadrant.LOWER_LEFT));
+//			case LOWER_RIGHT: return this.lookup(p, bb.getQuadrant(Quadrant.LOWER_RIGHT));
+//			default: return false;
+//			}
+			return new CentroidNode(cent2.add(cent1), upperLeft, upperRight, lowerLeft, lowerRight);
 		}
 	}
 
