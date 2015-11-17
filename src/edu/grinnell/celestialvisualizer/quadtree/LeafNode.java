@@ -14,9 +14,7 @@ public class LeafNode implements Node{
 		this.position = position;
 	}
 
-	/**
-	 * This method returns true when the given position is within bb and matches pos.
-	 */
+	//done
 	@Override
 	public boolean lookup(Point pos, BoundingBox bb) {
 		if (bb.contains(position) && position.equals(pos)) {
@@ -26,13 +24,19 @@ public class LeafNode implements Node{
 		}
 	}
 
+	//done
 	@Override
 	public Vector2d calculateAcceleration(Point p, BoundingBox bb, double thresh) {
-		Vector2d posDif = p.distance(position);
-		if (posDif.magnitude() < thresh || bb.contains(p)) {
-			return Physics.calculateAccelerationOn(p, mass, position);
+		return Physics.calculateAccelerationOn(p, mass, position);
+	}
+
+	//done
+	@Override
+	public boolean equals(Object other) {
+		if (other instanceof LeafNode) {
+			return true;
 		} else {
-			return Vector2d.zero;
+			return false;
 		}
 	}
 
