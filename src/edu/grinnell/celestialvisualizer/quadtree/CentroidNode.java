@@ -38,13 +38,13 @@ public class CentroidNode implements Node{
 		if (this.lookup(p, bb) || distance < thresh) {
 			return calculateAcceleration(p, bb.getQuadrant(Quadrant.UPPER_LEFT), thresh)
 					.add(calculateAcceleration(p, bb.getQuadrant(Quadrant.UPPER_RIGHT), thresh))
-							.add(calculateAcceleration(p, bb.getQuadrant(Quadrant.LOWER_LEFT), thresh))
-									.add(calculateAcceleration(p, bb.getQuadrant(Quadrant.LOWER_RIGHT), thresh));
+					.add(calculateAcceleration(p, bb.getQuadrant(Quadrant.LOWER_LEFT), thresh))
+					.add(calculateAcceleration(p, bb.getQuadrant(Quadrant.LOWER_RIGHT), thresh));
 		} else {
 			return Physics.calculateAccelerationOn(p, cent.getMass(), cent.getPosition());
 		}
 	}
-	
+
 	@Override
 	public boolean equals(Object other) {
 		if (other instanceof CentroidNode) {
@@ -59,17 +59,11 @@ public class CentroidNode implements Node{
 		return null;
 		if (!bb.contains(p)){
 			throw new UnsupportedOperationException();
-		} else if ()
-		
-		// if 
-		else if ()
-			// must calculate new centroid since mass of point changes
-			return new CentroidNode());
-		} else if (bb.quadrantOf(p).equals(bb.quadrantOf(position))){
-			return insert (mass, p, bb.getQuadrant(bb.quadrantOf(p)));
-		} else {
-			
+		} else if () {
+
 		}
+
+
 	}
 
 }
