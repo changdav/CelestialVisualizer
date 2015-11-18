@@ -6,6 +6,11 @@ import edu.grinnell.celestialvisualizer.util.BoundingBox;
 import edu.grinnell.celestialvisualizer.util.Point;
 import edu.grinnell.celestialvisualizer.util.Vector2d;
 
+/**
+ * A centroid node consists of a centroid and four sub-quad trees for the four possible sub-divisions of the space: 
+ * upper left, upper right, lower left, and lower right.
+ *
+ */
 public class CentroidNode implements Node{
 	private Centroid cent;
 	private Node upperLeft;
@@ -35,11 +40,16 @@ public class CentroidNode implements Node{
 	@Override
 	public Vector2d calculateAcceleration(Point p, BoundingBox bb, double thresh) {
 		double distance = p.distance(this.cent.getPosition()).magnitude();
-		if (this.lookup(p, bb) || distance < thresh) {
-			return calculateAcceleration(p, bb.getQuadrant(Quadrant.UPPER_LEFT), thresh)
-					.add(calculateAcceleration(p, bb.getQuadrant(Quadrant.UPPER_RIGHT), thresh))
-					.add(calculateAcceleration(p, bb.getQuadrant(Quadrant.LOWER_LEFT), thresh))
-					.add(calculateAcceleration(p, bb.getQuadrant(Quadrant.LOWER_RIGHT), thresh));
+		if (bb.contains(p) || distance < thresh) {
+			Vector2d accel = Vector2d.zero;
+			
+			accel = accel.add(upperLeft.calculateAcceleration(p, bb.getQuadrant(Quadrant.UPPER_LEFT), thresh));
+			accel = accel.add(upperRight.calculateAcceleration(p, bb.getQuadrant(Quadrant.UPPER_RIGHT), thresh));
+			accel = accel.add(lowerLeft.calculateAcceleration(p, bb.getQuadrant(Quadrant.LOWER_LEFT), thresh));
+			accel = accel.add(lowerRight.calculateAcceleration(p, bb.getQuadrant(Quadrant.LOWER_RIGHT), thresh));
+			
+			return accel;
+			
 		} else {
 			return Physics.calculateAccelerationOn(p, cent.getMass(), cent.getPosition());
 		}
@@ -56,14 +66,26 @@ public class CentroidNode implements Node{
 
 	@Override
 	public Node insert(double mass, Point p, BoundingBox bb) {
-		return null;
-		if (!bb.contains(p)){
-			throw new UnsupportedOperationException();
-		} else if () {
 
+		this.cent = cent.add(new Centroid(mass, p));
+		
+		if (bb.quadrantOf(p).equals(Quadrant.UPPER_LEFT)) {
+			BoundingBox bb1 = bb.getQuadrant(Quadrant.UPPER_LEFT);
+			upperLeft = upperLeft.insert(mass, p, bb1);
+			return this;
+		} else if (bb.quadrantOf(p).equals(Quadrant.UPPER_RIGHT)) {
+			BoundingBox bb1 = bb.getQuadrant(Quadrant.UPPER_RIGHT);
+			upperRight = upperRight.insert(mass, p, bb1);
+			return this;
+		} else if (bb.quadrantOf(p).equals(Quadrant.LOWER_LEFT)) {
+			BoundingBox bb1 = bb.getQuadrant(Quadrant.LOWER_LEFT);
+			lowerLeft = lowerLeft.insert(mass, p, bb1);
+			return this;
+		} else {
+			BoundingBox bb1 = bb.getQuadrant(Quadrant.LOWER_RIGHT);
+			lowerRight = lowerRight.insert(mass, p, bb1);
+			return this;
 		}
-
-
 	}
 
 }

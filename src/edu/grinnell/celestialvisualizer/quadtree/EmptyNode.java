@@ -3,6 +3,9 @@ import edu.grinnell.celestialvisualizer.util.BoundingBox;
 import edu.grinnell.celestialvisualizer.util.Point;
 import edu.grinnell.celestialvisualizer.util.Vector2d;
 
+/**
+ * An empty node consisting of nothing.
+ */
 public class EmptyNode implements Node{
 
 	public EmptyNode() {}
@@ -28,10 +31,6 @@ public class EmptyNode implements Node{
 
 	@Override
 	public Node insert(double mass, Point p, BoundingBox bb) {
-		if (!bb.contains(p)){
-			throw new UnsupportedOperationException();
-		} else {
-			return new LeafNode (mass, p);
-		}
+		return new LeafNode (mass, p);
 	}
 }
