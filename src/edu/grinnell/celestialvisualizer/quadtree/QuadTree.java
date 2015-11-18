@@ -7,7 +7,9 @@ import edu.grinnell.celestialvisualizer.util.Vector2d;
 public class QuadTree {
 	private Node root;
 
-	public QuadTree() {}
+	public QuadTree() {
+		this.root = new EmptyNode();
+	}
 
 	public static QuadTree makeTreeWithLeaf() {
 		QuadTree ret = new QuadTree();

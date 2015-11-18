@@ -3,9 +3,10 @@ import edu.grinnell.celestialvisualizer.physics.Centroid;
 import edu.grinnell.celestialvisualizer.physics.Physics;
 import edu.grinnell.celestialvisualizer.util.BoundingBox;
 import edu.grinnell.celestialvisualizer.util.Point;
-import edu.grinnell.celestialvisualizer.util.Quadrant;
 import edu.grinnell.celestialvisualizer.util.Vector2d;
-
+/**
+ * The leaf node consists of a single body (represented by a mass and position).
+ */
 public class LeafNode implements Node{
 	private double mass;
 	private Point position;
@@ -17,11 +18,7 @@ public class LeafNode implements Node{
 
 	@Override
 	public boolean lookup(Point pos, BoundingBox bb) {
-		if (bb.contains(position) && position.equals(pos)) {
-			return true;
-		} else {
-			return false;
-		}
+		return bb.contains(position) && position.equals(pos);
 	}
 
 	@Override
@@ -40,17 +37,13 @@ public class LeafNode implements Node{
 
 	@Override
 	public Node insert(double mass, Point p, BoundingBox bb) {
-		if (!bb.contains(p)){
-			throw new UnsupportedOperationException();
-		} else if (p.equals(position)){
+		if (p.equals(position)){
 			return new LeafNode (this.mass + mass, p);
 		} else {
-			Centroid b1 = new Centroid(this.mass, this.position);
-			Centroid b2 = new Centroid(mass, p);
-			Centroid b3 = b1.add(b2);
-			CentroidNode cNode = new CentroidNode(b3, new EmptyNode(), new EmptyNode(), new EmptyNode(), new EmptyNode());
+			Centroid b1 = new Centroid(0, new Point(0,0));
+			CentroidNode cNode = new CentroidNode(b1, new EmptyNode(), new EmptyNode(), new EmptyNode(), new EmptyNode());
 			cNode.insert(mass, p, bb);
-			cNode.insert(this.mass, position, bb);
+			cNode.insert(this.mass, this.position, bb);
 			return cNode;
 		}
 	}

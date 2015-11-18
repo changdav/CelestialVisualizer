@@ -5,6 +5,7 @@ import java.util.List;
 import java.util.stream.Collectors;
 import java.util.stream.Stream;
 
+import edu.grinnell.celestialvisualizer.NBodyExamples;
 import edu.grinnell.celestialvisualizer.quadtree.QuadTree;
 import edu.grinnell.celestialvisualizer.util.BoundingBox;
 import edu.grinnell.celestialvisualizer.util.Vector2d;
@@ -52,14 +53,6 @@ public class NBody {
 		Stream<Body> stream1 = bodies.parallelStream();
 		return stream1.map(s -> s.calculateAcceleration(bodies))
 				.collect(Collectors.toList());
-		
-		//		List<Vector2d> accelList = new LinkedList<Vector2d>();
-		//		for (int i = 0; i < this.bodies.size(); i++) {
-		//			Vector2d newAccel = Vector2d.zero;
-		//			newAccel.add(this.bodies.get(i).calculateAcceleration(getBodies()));
-		//			accelList.add(newAccel);
-		//		}
-		//		return accelList;
 	}
 
 	/**
@@ -80,7 +73,11 @@ public class NBody {
 	 * @return a list of the calculated accelerations
 	 */
 	public List<Vector2d> calculateAccelerationsByQuadTree(QuadTree qtree, BoundingBox bb, double elapsedTime) {
-		throw new edu.grinnell.celestialvisualizer.UnimplementedException("NBody.calculateAccelerationsByQuadTree");
+		List<Vector2d> accelList = new LinkedList<Vector2d>();
+		for (int i = 0; i < this.bodies.size(); i++) {
+			accelList.add(qtree.calculateAcceleration(this.bodies.get(i).getPosition(), bb, 1000000.0));
+		}
+		return accelList;
 	}
 
 	/**
@@ -89,6 +86,14 @@ public class NBody {
 	 * @param elapsedTime the time step of the simulation.
 	 */
 	public void updateWithQuadTree(double elapsedTime) {
-		throw new edu.grinnell.celestialvisualizer.UnimplementedException("NBody.updateWithQuadTree");
+		QuadTree qtree = new QuadTree();
+		for (Body planet : bodies) {
+			qtree.insert(planet.getMass(), planet.getPosition(), NBodyExamples.WORLD_BOX);
+		}
+		
+		List<Vector2d> accelList = calculateAccelerationsByQuadTree(qtree, NBodyExamples.WORLD_BOX, elapsedTime);
+		for (Body planet : bodies) {
+			planet.update(elapsedTime, accelList.remove(0));
+		}
 	}
 }
